@@ -66,24 +66,6 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
     chartGroup.append("text")
     .text(function(d) {return censusData.abbr}, ".stateText");
 
-    // // Tool tip
-    // var toolTip = d3.tip()
-    //   .attr("class", "tooltip")
-    //   .offset([80, -60])
-    //   .html(function(d) {
-    //     return (`${d.abbr}<br>Health Care : ${d.healthcare}<br>Smokers: ${d.smokes}`);
-    //   });
-
-    // chartGroup.call(toolTip);
-    
-    // circlesGroup.on("click", function(data) {
-    //     toolTip.show(data, this);
-    //   })
-    //     // onmouseout event
-    //     .on("mouseout", function(data, index) {
-    //       toolTip.hide(data);
-    //     });
-
     // Create axes labels
     chartGroup.append("text")
         .attr("transform", "rotate(-90)")
