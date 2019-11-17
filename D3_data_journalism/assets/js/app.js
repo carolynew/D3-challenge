@@ -25,6 +25,7 @@ var chartGroup = svg.append("g")
 
 //Import data
 d3.csv("assets/data/data.csv").then(function(censusData) {
+    console.log("Data imported");
     //Parse data and set as numbers
     censusData.forEach(function(data) {
         data.healthcare = +data.healthcare;
@@ -54,17 +55,32 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
 
     //Create circles
     var circlesGroup = chartGroup.selectAll("circle")
-    .data(censusData)
-    .enter()
-    .append("circle")
-    .attr("cx", d => xLinearScale(d.healthcare))
-    .attr("cy", d => yLinearScale(d.smokes))
-    .attr("r", "15")
-    .attr("fill", ".stateCircle")
-    .attr("opacity", ".5")
+        .data(censusData)
+        .enter()
+        .append("circle")
+        .attr("cx", d => xLinearScale(d.healthcare))
+        .attr("cy", d => yLinearScale(d.smokes))
+        .attr("r", "15")
+        .attr("fill", "#89bdd3")
+        .attr("opacity", ".5");
     
-    chartGroup.append("text")
-    .text(function(d) {return censusData.abbr}, ".stateText");
+    var stateAbbr = chartGroup.selectAll(null)
+        .data(censusData).enter().append("text");
+
+    stateAbbr
+        .attr("x", function(d) {
+            return xLinearScale(d.healthcare);
+        })
+        .attr("y", function(d) {
+            return yLinearScale(d.smokes);
+        })
+        .text(function(d) {
+            return d.abbr;
+        })
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "10px")
+        .attr("text-anchor", "middle")
+        .attr("fill", "#fff");
 
     // Create axes labels
     chartGroup.append("text")
